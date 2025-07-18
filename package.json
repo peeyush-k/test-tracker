@@ -8,12 +8,15 @@
   "keywords": [],
   "author": "Peeyush",
   "start": "node app.js",
+  "keep-alive": "node keepAlive.js",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "axios": "^1.10.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
-    "mongoose": "^8.16.4"
+    "mongoose": "^8.16.4",
+    "node-cron": "^4.2.1"
   }
 }

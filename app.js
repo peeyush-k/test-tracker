@@ -205,3 +205,8 @@ app.listen(PORT, () => {
   console.log(`Dashboard: http://localhost:${PORT}`);
   console.log(`Add Test Form: http://localhost:${PORT}/add-test.html`);
 });
+
+// Start keep-alive only in production
+if (process.env.NODE_ENV === 'production') {
+  require('./keepAlive');
+}
