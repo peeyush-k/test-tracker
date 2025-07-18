@@ -114,6 +114,7 @@ function renderAccuracyTrend(tests) {
                     borderColor: '#f39c12',
                     backgroundColor: 'rgba(243, 156, 18, 0.1)',
                     tension: 0.3,
+                    spanGaps: true,
                     fill: true
                 },
                 {
