@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add UPSC Mock Test</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Add New Test</h1>
+        <nav>
+            <a href="/">Dashboard</a>
+            <a href="/add-test.html">Add Test</a>
+        </nav>
+    </header>
+
+    <main class="form-container">
+        <form id="test-form" class="test-form">
+            <h2>Enter Test Details</h2>
+            
+            <div class="form-grid">
+                
+                <!-- Basic Info -->
+                <div class="form-section">
+                    <h3>Test Information</h3>
+                    <div class="form-group">
+                        <label for="test-date">Test Date</label>
+                        <input type="date" id="test-date" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="test-name">Test Name</label>
+                        <input type="text" id="test-name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="theme">Theme</label>
+                        <select id="theme" required>
+                            <option value="GS" selected>General Studies</option>
+                            <option value="Current Affairs">Current Affairs</option>
+                            <option value="CSAT">CSAT</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Attempt Data -->
+                <div class="form-section">
+                    <h3>Attempt Details</h3>
+                    <div class="form-group">
+                        <label for="total-questions">Total Questions</label>
+                        <select id="total-questions" required>
+                            <option value="50" selected>50</option>
+                            <option value="100">100</option>
+                            <option value="custom">Custom</option>
+                        </select>
+                        <input type="number" id="custom-total" min="1" style="display:none; margin-top:0.5rem;" placeholder="Enter custom number">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confident-attempts">Confident Attempts</label>
+                        <input type="number" id="confident-attempts" min="0" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="correct-confident">Correct Confident</label>
+                        <input type="number" id="correct-confident" min="0" required>
+                    </div>
+                </div>
+
+                <!-- Guessed Data -->
+                <div class="form-section">
+                    <h3>Guessed Answers</h3>
+                    <div class="form-group">
+                        <label for="guessed-attempts">Guessed Attempts</label>
+                        <input type="number" id="guessed-attempts" min="0" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="correct-guesses">Correct Guesses</label>
+                        <input type="number" id="correct-guesses" min="0" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="submit-btn">Save Test</button>
+                <button type="reset" class="reset-btn">Reset Form</button>
+            </div>
+        </form>
+    </main>
+
+    <script src="/js/form-handler.js"></script>
+</body>
+</html>

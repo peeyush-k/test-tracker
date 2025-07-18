@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPSC Mock Test Analyzer</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/css/styles.css">
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@2.1.1/dist/chartjs-plugin-annotation.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Track Tests</h1>
+        <nav>
+            <a href="/">Dashboard</a>
+            <a href="/add-test.html">Add Test</a>
+        </nav>
+    </header>
+
+    <main class="dashboard">
+
+        <!-- Summary Section -->
+        <section class="summary-section">
+            <h2>Performance Overview</h2>
+            <div class="summary-cards">
+                <div class="card">
+                    <h3>Accuracy</h3>
+                    <div id="avg-accuracy" class="metric-value">--%</div>
+                </div>
+                <div class="card">
+                    <h3>Score</h3>
+                    <div id="avg-net-score" class="metric-value">--</div>
+                </div>
+                <div class="card">
+                    <h3>Attempt Rate</h3>
+                    <div id="avg-attempt-rate" class="metric-value">--%</div>
+                </div>
+                <div class="card">
+                    <h3>Total Tests</h3>
+                    <div id="total-tests" class="metric-value">--</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts Section -->
+        <section class="charts-section">
+            <div class="chart-row">
+                <div class="chart-container">
+                    <h3>Accuracy Trend</h3>
+                    <canvas id="accuracy-trend"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>Score Progress</h3>
+                    <canvas id="score-progress"></canvas>
+                </div>
+            </div>  
+            <div class="chart-row">
+                <div class="chart-container">
+                    <h3>Attempt Rate Trend</h3>
+                    <canvas id="attempt-trend"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Test History Section -->
+        <section class="history-section">
+            <h2>Test History</h2>
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="theme-filter">Theme:</label>
+                    <select id="theme-filter">
+                        <option value="GS" selected>GS</option>
+                        <option value="Current Affairs">CA</option>
+                        <option value="CSAT">CSAT</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="date-from">From:</label>
+                    <input type="date" id="date-from">
+                </div>
+                <div class="filter-group">
+                    <label for="date-to">To:</label>
+                    <input type="date" id="date-to">
+                </div>
+                <button id="apply-filters">Apply Filters</button>
+            </div>
+            <div class="table-container">
+                <table id="test-history">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Test Name</th>
+                            <th>Theme</th>
+                            <th>Confident Acc</th>
+                            <th>Guess Acc</th>
+                            <th>Net Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- data will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="/js/dashboard.js"></script>
+</body>
+</html>
