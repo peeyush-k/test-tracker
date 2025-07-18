@@ -12,7 +12,7 @@ const testSchema = new mongoose.Schema({
   correctGuesses: { type: Number, required: true },
   unattempted: { type: Number, required: true },
   confidentAccuracy: Number,
-  guessAccuracy: Number,
+  guessAccuracy: {type: Number, default: -1},
   totalCorrect: Number,
   totalIncorrect: Number,
   netScore: Number,

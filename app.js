@@ -61,7 +61,7 @@ app.post('/api/tests', async (req, res) => {
         : 0,
       guessAccuracy: rawData.guessedAttempts > 0 
         ? (rawData.correctGuesses / rawData.guessedAttempts) * 100 
-        : 0,
+        : -1,
       totalCorrect: rawData.correctConfident + rawData.correctGuesses,
       totalIncorrect: (rawData.confidentAttempts - rawData.correctConfident) + 
                      (rawData.guessedAttempts - rawData.correctGuesses),

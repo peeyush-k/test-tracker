@@ -43,7 +43,8 @@ async function loadDashboardData() {
     }
 }
 
-function renderSummaryCards(summary, tests) {  // Added 'tests' parameter
+function renderSummaryCards(summary, tests) {
+    // Handle empty/missing data
     if (!summary || !tests || tests.length === 0) {
         document.getElementById('avg-accuracy').textContent = '--%';
         document.getElementById('avg-net-score').textContent = '--';
@@ -51,26 +52,38 @@ function renderSummaryCards(summary, tests) {  // Added 'tests' parameter
         document.getElementById('total-tests').textContent = '--';
         return;
     }
-    const normalizedSum = tests.reduce((sum, test) => {
-        const scaleFactor = 100 / test.totalQuestions; // 2 for 50Q, 1 for 100Q
-        return sum + (test.netScore * scaleFactor);
-    }, 0);
-    
-    const avgNetScoreNormalized = normalizedSum / tests.length;
 
-     
-    // Update all metrics
+    // 1. Calculate NORMALIZED average net score (100Q equivalent)
+    const avgNetScoreNormalized = tests.reduce((sum, test) => {
+        const scaleFactor = 100 / test.totalQuestions;
+        return sum + (test.netScore * scaleFactor);
+    }, 0) / tests.length;
+
+    // 2. Calculate ACCURACY from tests with attempts (better than backend average)
+    const testsWithAttempts = tests.filter(t => 
+        (t.confidentAttempts + t.guessedAttempts) > 0
+    );
+    
+    const avgAccuracy = testsWithAttempts.length > 0
+        ? testsWithAttempts.reduce((sum, t) => sum + (
+            (t.totalCorrect) / (t.confidentAttempts + t.guessedAttempts) * 100
+        ), 0) / testsWithAttempts.length
+        : 0;
+
+    // 3. Update UI
     document.getElementById('avg-accuracy').textContent = 
-        typeof summary.avgAccuracy === 'number' ? `${summary.avgAccuracy.toFixed(1)}%` : '--%';
+        `${avgAccuracy.toFixed(1)}%`; // Use our new calculation
     
     document.getElementById('avg-net-score').textContent = 
-        !isNaN(avgNetScoreNormalized) ? avgNetScoreNormalized.toFixed(2) : '--';
+        avgNetScoreNormalized.toFixed(2);
     
     document.getElementById('avg-attempt-rate').textContent = 
-        typeof summary.avgAttemptRate === 'number' ? `${summary.avgAttemptRate.toFixed(1)}%` : '--%';
+        typeof summary.avgAttemptRate === 'number' 
+            ? `${summary.avgAttemptRate.toFixed(1)}%` 
+            : '--%';
     
     document.getElementById('total-tests').textContent = 
-        summary.totalTests ? summary.totalTests.toString() : '--';
+        summary.totalTests?.toString() || '--';
 }
 
 function renderAccuracyTrend(tests) {
@@ -97,7 +110,7 @@ function renderAccuracyTrend(tests) {
                 },
                 {
                     label: 'Guess Accuracy',
-                    data: tests.map(t => t.guessAccuracy),
+                    data: tests.map(t => t.guessAccuracy >= 0 ? t.guessAccuracy : null),
                     borderColor: '#f39c12',
                     backgroundColor: 'rgba(243, 156, 18, 0.1)',
                     tension: 0.3,
@@ -264,7 +277,7 @@ function populateTestTable(tests) {
             <td>${test.testName}</td>
             <td>${test.theme}</td>
             <td>${test.confidentAccuracy.toFixed(1)}%</td>
-            <td>${test.guessAccuracy.toFixed(1)}%</td>
+            <td>${test.guessAccuracy >= 0 ? test.guessAccuracy.toFixed(1) + '%' : '--'}</td>
             <td>${test.netScore.toFixed(2)}/${maxMarks}</td>
         `;
         
