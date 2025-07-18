@@ -1,7 +1,7 @@
 const axios = require('axios');
 const cron = require('node-cron');
 
-const RENDER_URL = "https://test-tracker.onrender.com"; // Your Render URL
+const RENDER_URL = "https://test-tracker-for-peeyush.onrender.com"; // Your Render URL
 const PING_INTERVAL = "*/12 * * * *"; // Every 12 minutes (under 15-min threshold)
 
 // Function to ping your Render app
